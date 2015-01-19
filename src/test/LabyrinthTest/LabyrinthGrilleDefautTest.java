@@ -1,52 +1,41 @@
 package LabyrinthTest;
 
+import maze.Salle;
 import maze.grid.LabyrinthGrilleDefaut;
 import maze.grid.SalleCarree;
 import org.junit.Test;
+import player.Personnage;
+import player.PersonnageClavier;
+
+import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
 
-public class LabyrinthGrilleDefautTest extends LabyrinthGrilleDefaut {
+public class LabyrinthGrilleDefautTest {
 
-    public LabyrinthGrilleDefaut LabyrinthTest = new LabyrinthGrilleDefaut();
+    public final LabyrinthGrilleDefaut labyrinthTest = new LabyrinthGrilleDefaut();
 
     @Test
     public void testCreerLabyrinthe() throws Exception {
-        LabyrinthTest.creerLabyrinthe("labys/level10.txt");
-        assertEquals(LabyrinthTest.getHauteur(), 37);
-        assertEquals(LabyrinthTest.getLargeur(), 37);
-        SalleCarree c = (SalleCarree) LabyrinthTest.getEntree();
+        labyrinthTest.creerLabyrinthe("labys/level10.txt");
+        assertEquals(labyrinthTest.getHauteur(), 37);
+        assertEquals(labyrinthTest.getLargeur(), 37);
+        SalleCarree c = (SalleCarree) labyrinthTest.getEntree();
         assertEquals(c.getColonne(), 1);
         assertEquals(c.getLigne(), 1);
     }
 
     @Test
     public void testSallesAccessibles() throws Exception {
+        Personnage p = new PersonnageClavier();
+        ArrayList<Salle> sallesLibres;
+        labyrinthTest.creerLabyrinthe("labys/level10.txt");
 
-    }
-
-    @Test
-    public void testGetSalles() throws Exception {
-
-    }
-
-    @Test
-    public void testEntrer() throws Exception {
-
-    }
-
-    @Test
-    public void testSortir() throws Exception {
-
-    }
-
-    @Test
-    public void testGetEntree() throws Exception {
-
-    }
-
-    @Test
-    public void testGetSortie() throws Exception {
-
+        labyrinthTest.entrer(p);
+        assertEquals(labyrinthTest.sallesAccessibles(p).size(), 1);
+        sallesLibres = (ArrayList)labyrinthTest.sallesAccessibles(p);
+        p.setPosition(sallesLibres.get(0));
+        sallesLibres = (ArrayList)labyrinthTest.sallesAccessibles(p);
+        assertEquals(sallesLibres.size(), 2);
     }
 }
