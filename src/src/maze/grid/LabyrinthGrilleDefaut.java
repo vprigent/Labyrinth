@@ -17,13 +17,15 @@ public class LabyrinthGrilleDefaut implements LabyrinthGrille {
     private SalleCarree sortie;
 
     // cree le labyrinthe
-    public void creerLabyrinthe(String file) {
-        // À parir d'un fichier !
+    public boolean creerLabyrinthe(String file) {
+
         Scanner sc = null;
+
         try {
             sc = new Scanner(new File(file));
         } catch (Exception e) {
             System.err.println(e);
+            return false;
         }
 
         hauteur = sc.nextInt();
@@ -51,6 +53,8 @@ public class LabyrinthGrilleDefaut implements LabyrinthGrille {
             int colonne = sc.nextInt();
             salles[ligne][colonne] = new SalleCarree(ligne, colonne);
         }
+
+        return true;
     }
 
 

@@ -7,7 +7,7 @@ import java.util.Collection;
 
 public interface Labyrinthe {
     // cree le labyrinthe
-    public void creerLabyrinthe(String file);
+    public boolean creerLabyrinthe(String file);
 
     // place bob à l'entree du labyrinthe
     public void entrer(Player bob);

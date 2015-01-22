@@ -1,39 +1,29 @@
 package main;
 
+import maze.MazeHandler;
 import maze.Salle;
-import maze.grid.LabyrinthGrille;
-import maze.grid.LabyrinthGrilleDefaut;
 import player.KeyboardPlayer;
 import player.Player;
-import player.KeyboardPlayer;
-import view.LabyrinthView;
 import view.MainFrame;
 
-import javax.swing.*;
-import java.awt.*;
 import java.util.Collection;
 
 public class LabyrintheApp {
 
     public static void main(String[] args) {
 
-
         // modele
-        LabyrinthGrille labyrinthe = new LabyrinthGrilleDefaut();
-        if (args.length == 0) {
-            labyrinthe.creerLabyrinthe("labys/level11.txt");
-        }
-        else labyrinthe.creerLabyrinthe(args[0]);
+        MazeHandler labyrinthHandler = new MazeHandler();
 
         Player bob = new KeyboardPlayer();
 
-        labyrinthe.entrer(bob);
+        labyrinthHandler.getCurrentLabyrinth().entrer(bob);
 
         // vue
-        MainFrame frame =  new MainFrame(labyrinthe, bob);
+        MainFrame frame = new MainFrame(labyrinthHandler.getCurrentLabyrinth(), bob);
 
-        while (!labyrinthe.sortir(bob)) {
-            Collection<Salle> sallesAccessibles = labyrinthe.sallesAccessibles(bob);
+        while (!labyrinthHandler.getCurrentLabyrinth().sortir(bob)) {
+            Collection<Salle> sallesAccessibles = labyrinthHandler.getCurrentLabyrinth().sallesAccessibles(bob);
             Salle destination = bob.faitSonChoix(sallesAccessibles); // on demande au heros de faire son choix de salle
             if (destination != bob.getPosition()) destination.recevoir(bob); // deplacement
             //rafraichissement de la vue
@@ -45,7 +35,6 @@ public class LabyrintheApp {
             } catch (InterruptedException ie) {
                 System.err.println(ie);
             }
-
         }
     }
 }
