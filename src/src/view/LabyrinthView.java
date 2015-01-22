@@ -15,7 +15,7 @@ import java.util.Collection;
 @SuppressWarnings("unchecked")
 public class LabyrinthView extends JComponent {
 
-    private static final int unite = 15;
+    private final static int unite = 15;
     private LabyrinthGrille labyrinthe;
     private Player bob;
     private Case entree;
@@ -29,9 +29,8 @@ public class LabyrinthView extends JComponent {
         sortie = (Case) labyrinthe.getSortie();
         this.bob = bob;
 
-        setPreferredSize(new Dimension(labyrinthe.getLargeur() * unite,
-                labyrinthe.getHauteur() * unite));
-        setMinimumSize(new Dimension(labyrinthe.getLargeur() * unite,labyrinthe.getHauteur() * unite));
+        // on défini la taille minimale en fonction de la taille du labyrinthe
+        setMinimumSize(new Dimension(labyrinthe.getLargeur() * unite, labyrinthe.getHauteur() * unite));
         // on ajoute un ecouteur sur le clavier attache au dessin du labyrinthe
         addKeyListener((KeyListener) bob);
     }
@@ -89,5 +88,4 @@ public class LabyrinthView extends JComponent {
         dessinHeros(g);
         revalidate();
     }
-
 }

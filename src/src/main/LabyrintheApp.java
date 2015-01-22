@@ -7,6 +7,7 @@ import player.KeyboardPlayer;
 import player.Player;
 import player.KeyboardPlayer;
 import view.LabyrinthView;
+import view.MainFrame;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,27 +20,17 @@ public class LabyrintheApp {
 
         // modele
         LabyrinthGrille labyrinthe = new LabyrinthGrilleDefaut();
-        if (args.length == 0)
+        if (args.length == 0) {
             labyrinthe.creerLabyrinthe("labys/level11.txt");
+        }
         else labyrinthe.creerLabyrinthe(args[0]);
+
         Player bob = new KeyboardPlayer();
+
         labyrinthe.entrer(bob);
 
         // vue
-        JFrame frame = new JFrame("Labyrinthe");
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        LabyrinthView dessin = new LabyrinthView(labyrinthe, bob);
-        dessin.setFocusable(true);
-        dessin.requestFocus();
-
-        Dimension minimumSize = dessin.getMinimumSize();
-        minimumSize.setSize(minimumSize.getWidth()+16, minimumSize.getHeight()+38);
-
-        frame.setContentPane(dessin);
-        frame.pack();
-        frame.setVisible(true);
-        frame.setMinimumSize(minimumSize);
-
+        MainFrame frame =  new MainFrame(labyrinthe, bob);
 
         while (!labyrinthe.sortir(bob)) {
             Collection<Salle> sallesAccessibles = labyrinthe.sallesAccessibles(bob);
