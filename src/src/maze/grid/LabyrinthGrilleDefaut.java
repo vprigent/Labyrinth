@@ -1,7 +1,7 @@
 package maze.grid;
 
 import maze.Salle;
-import player.Personnage;
+import player.Player;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -55,7 +55,7 @@ public class LabyrinthGrilleDefaut implements LabyrinthGrille {
 
 
     // renvoie les salles accessibles par bob
-    public Collection<Salle> sallesAccessibles(Personnage bob) {
+    public Collection<Salle> sallesAccessibles(Player bob) {
         Collection<Salle> sa = new ArrayList();
         SalleCarree tmp = (SalleCarree) bob.getPosition();
         SalleCarree ad;
@@ -105,11 +105,11 @@ public class LabyrinthGrilleDefaut implements LabyrinthGrille {
     }
 
 
-    public void entrer(Personnage bob) {
+    public void entrer(Player bob) {
         entree.recevoir(bob);
     }
 
-    public boolean sortir(Personnage bob) {
+    public boolean sortir(Player bob) {
         return (bob.getPosition() == sortie);
     }
 

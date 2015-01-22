@@ -1,7 +1,7 @@
 package maze;
 
-import player.Personnage;
+import player.Player;
 
 public interface Salle {
-    public void recevoir(Personnage bob);
+    public void recevoir(Player bob);
 }

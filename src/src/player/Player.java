@@ -5,7 +5,7 @@ import maze.Salle;
 
 import java.util.Collection;
 
-public interface Personnage {
+public interface Player {
     // renvoie une salle parmi sallesAccesibles
     public Salle faitSonChoix(Collection<Salle> sallesAccessibles);
 

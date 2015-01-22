@@ -3,11 +3,13 @@ package main;
 import maze.Salle;
 import maze.grid.LabyrinthGrille;
 import maze.grid.LabyrinthGrilleDefaut;
-import player.Personnage;
-import player.PersonnageClavier;
-import view.Dessin;
+import player.KeyboardPlayer;
+import player.Player;
+import player.KeyboardPlayer;
+import view.LabyrinthView;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.Collection;
 
 public class LabyrintheApp {
@@ -18,20 +20,26 @@ public class LabyrintheApp {
         // modele
         LabyrinthGrille labyrinthe = new LabyrinthGrilleDefaut();
         if (args.length == 0)
-            labyrinthe.creerLabyrinthe("labys/level10.txt");
+            labyrinthe.creerLabyrinthe("labys/level11.txt");
         else labyrinthe.creerLabyrinthe(args[0]);
-        Personnage bob = new PersonnageClavier();
+        Player bob = new KeyboardPlayer();
         labyrinthe.entrer(bob);
 
         // vue
         JFrame frame = new JFrame("Labyrinthe");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        Dessin dessin = new Dessin(labyrinthe, bob);
+        LabyrinthView dessin = new LabyrinthView(labyrinthe, bob);
         dessin.setFocusable(true);
         dessin.requestFocus();
+
+        Dimension minimumSize = dessin.getMinimumSize();
+        minimumSize.setSize(minimumSize.getWidth()+16, minimumSize.getHeight()+38);
+
         frame.setContentPane(dessin);
         frame.pack();
         frame.setVisible(true);
+        frame.setMinimumSize(minimumSize);
+
 
         while (!labyrinthe.sortir(bob)) {
             Collection<Salle> sallesAccessibles = labyrinthe.sallesAccessibles(bob);

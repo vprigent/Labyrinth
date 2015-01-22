@@ -1,7 +1,7 @@
 package maze.grid;
 
 
-import player.Personnage;
+import player.Player;
 
 public class SalleCarree implements Case {
     private int x;
@@ -12,7 +12,7 @@ public class SalleCarree implements Case {
         this.y = ligne;
     }
 
-    public void recevoir(Personnage bob) {
+    public void recevoir(Player bob) {
         bob.setPosition(this);
     }
 

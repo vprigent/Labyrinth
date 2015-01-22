@@ -4,8 +4,8 @@ import maze.Salle;
 import maze.grid.LabyrinthGrilleDefaut;
 import maze.grid.SalleCarree;
 import org.junit.Test;
-import player.Personnage;
-import player.PersonnageClavier;
+import player.Player;
+import player.KeyboardPlayer;
 
 import java.util.ArrayList;
 
@@ -27,7 +27,7 @@ public class LabyrinthGrilleDefautTest {
 
     @Test
     public void testSallesAccessibles() throws Exception {
-        Personnage p = new PersonnageClavier();
+        Player p = new KeyboardPlayer();
         ArrayList<Salle> sallesLibres;
         labyrinthTest.creerLabyrinthe("labys/level10.txt");
 

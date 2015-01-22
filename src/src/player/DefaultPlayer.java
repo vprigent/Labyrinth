@@ -9,7 +9,7 @@ import maze.Salle;
 
 import java.util.Collection;
 
-public abstract class PersonnageDefaut implements Personnage {
+public abstract class DefaultPlayer implements Player {
     private Salle salleCourante;
 
     public abstract Salle faitSonChoix(Collection<Salle> sallesAccessibles);

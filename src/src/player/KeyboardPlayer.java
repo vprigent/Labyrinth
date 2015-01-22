@@ -9,7 +9,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Collection;
 
-public class PersonnageClavier extends PersonnageDefaut implements KeyListener {
+public class KeyboardPlayer extends DefaultPlayer implements KeyListener {
 
     private Salle salleChoisie = new SalleCarree(-1, -1); // au debut, salle choisie invalide
     private Collection<Salle> sallesAccessibles;
