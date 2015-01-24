@@ -1,8 +1,8 @@
 package maze.grid;
 
-import maze.Labyrinthe;
+import maze.Labyrinth;
 
-public interface LabyrinthGrille extends Labyrinthe {
+public interface LabyrinthGrille extends Labyrinth {
     public int getHauteur();
 
     public int getLargeur();

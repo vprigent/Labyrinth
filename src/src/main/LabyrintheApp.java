@@ -1,7 +1,7 @@
 package main;
 
 import maze.MazeHandler;
-import maze.Salle;
+import maze.Room;
 import player.KeyboardPlayer;
 import player.Player;
 import view.MainFrame;
@@ -14,8 +14,8 @@ public class LabyrintheApp {
 
         // modele
         MazeHandler labyrinthHandler = new MazeHandler();
-
         Player bob = new KeyboardPlayer();
+
 
         labyrinthHandler.getCurrentLabyrinth().entrer(bob);
 
@@ -23,8 +23,8 @@ public class LabyrintheApp {
         MainFrame frame = new MainFrame(labyrinthHandler.getCurrentLabyrinth(), bob);
 
         while (!labyrinthHandler.getCurrentLabyrinth().sortir(bob)) {
-            Collection<Salle> sallesAccessibles = labyrinthHandler.getCurrentLabyrinth().sallesAccessibles(bob);
-            Salle destination = bob.faitSonChoix(sallesAccessibles); // on demande au heros de faire son choix de salle
+            Collection<Room> sallesAccessibles = labyrinthHandler.getCurrentLabyrinth().sallesAccessibles(bob);
+            Room destination = bob.faitSonChoix(sallesAccessibles); // on demande au heros de faire son choix de salle
             if (destination != bob.getPosition()) destination.recevoir(bob); // deplacement
             //rafraichissement de la vue
             frame.repaint();

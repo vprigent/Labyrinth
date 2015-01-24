@@ -1,13 +1,12 @@
 package maze.grid;
 
-
 import player.Player;
 
-public class SalleCarree implements Case {
+public class SquareRoom implements Case {
     private int x;
     private int y;
 
-    public SalleCarree(int colonne, int ligne) {
+    public SquareRoom(int colonne, int ligne) {
         this.x = colonne;
         this.y = ligne;
     }

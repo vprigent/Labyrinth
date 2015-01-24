@@ -1,7 +1,7 @@
 // Dessin.java
 package view;
 
-import maze.Salle;
+import maze.Room;
 import maze.grid.Case;
 import maze.grid.LabyrinthGrille;
 import player.Player;
@@ -16,7 +16,7 @@ import java.util.Collection;
 public class LabyrinthView extends JComponent {
 
     private final static int unite = 15;
-    private LabyrinthGrille labyrinthe;
+    private LabyrinthGrille labyrinth;
     private Player bob;
     private Case entree;
     private Case sortie;
@@ -24,27 +24,27 @@ public class LabyrinthView extends JComponent {
 
     public LabyrinthView(LabyrinthGrille labyrinthe, Player bob) {
         this.sallesVisitees = new ArrayList();
-        this.labyrinthe = labyrinthe;
+        this.labyrinth = labyrinthe;
         entree = (Case) labyrinthe.getEntree();
         sortie = (Case) labyrinthe.getSortie();
         this.bob = bob;
 
-        // on défini la taille minimale en fonction de la taille du labyrinthe
+        // we define the minimal size of the component, depending on the size of the maze
         setMinimumSize(new Dimension(labyrinthe.getLargeur() * unite, labyrinthe.getHauteur() * unite));
-        // on ajoute un ecouteur sur le clavier attache au dessin du labyrinthe
+
         addKeyListener((KeyListener) bob);
     }
 
-    public void dessinFond(Graphics g) {
-        // fond noir
+    public void drawBackground(Graphics g) {
+        // black background
         g.setColor(Color.black);
         g.fillRect(0, 0, this.getWidth(), this.getHeight());
     }
 
-    public void dessinSalles(Graphics g) {
+    public void drawRoom(Graphics g) {
         int i, j;
-        Collection<Salle> salles = labyrinthe.getSalles();
-        for (Salle s : salles) {
+        Collection<Room> rooms = labyrinth.getRooms();
+        for (Room s : rooms) {
             i = ((Case) s).getLigne();
             j = ((Case) s).getColonne();
             g.setColor(Color.white);
@@ -81,8 +81,8 @@ public class LabyrinthView extends JComponent {
     }
 
     public void paintComponent(Graphics g) {
-        dessinFond(g);
-        dessinSalles(g);
+        drawBackground(g);
+        drawRoom(g);
         dessinSallesVisitees(g);
         dessinEntreeSortie(g);
         dessinHeros(g);

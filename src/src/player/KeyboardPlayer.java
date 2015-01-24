@@ -1,9 +1,9 @@
 // PersonnageClavier.java
 package player;
 
-import maze.Salle;
+import maze.Room;
 import maze.grid.Case;
-import maze.grid.SalleCarree;
+import maze.grid.SquareRoom;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -11,10 +11,10 @@ import java.util.Collection;
 
 public class KeyboardPlayer extends DefaultPlayer implements KeyListener {
 
-    private Salle salleChoisie = new SalleCarree(-1, -1); // au debut, salle choisie invalide
-    private Collection<Salle> sallesAccessibles;
+    private Room salleChoisie = new SquareRoom(-1, -1); // au debut, salle choisie invalide
+    private Collection<Room> sallesAccessibles;
 
-    public Salle faitSonChoix(Collection<Salle> sallesAccessibles) {
+    public Room faitSonChoix(Collection<Room> sallesAccessibles) {
         this.sallesAccessibles = sallesAccessibles;
         if (sallesAccessibles.contains(salleChoisie))
             return salleChoisie;
@@ -45,7 +45,7 @@ public class KeyboardPlayer extends DefaultPlayer implements KeyListener {
                 break;
         }
         // mise a jour de salle choisie
-        for (Salle s : sallesAccessibles) {
+        for (Room s : sallesAccessibles) {
             // on regarde si le choix fait partie des salles accessibles et on le valide si c'est le cas
             if (((Case) s).getLigne() == y && (((Case) s).getColonne() == x)) {
                 salleChoisie = s;

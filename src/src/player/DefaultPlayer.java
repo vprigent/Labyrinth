@@ -5,20 +5,20 @@
 
 package player;
 
-import maze.Salle;
+import maze.Room;
 
 import java.util.Collection;
 
 public abstract class DefaultPlayer implements Player {
-    private Salle salleCourante;
+    private Room currentRoom;
 
-    public abstract Salle faitSonChoix(Collection<Salle> sallesAccessibles);
+    public abstract Room faitSonChoix(Collection<Room> sallesAccessibles);
 
-    public Salle getPosition() {
-        return salleCourante;
+    public Room getPosition() {
+        return currentRoom;
     }
 
-    public void setPosition(Salle salleCourante) {
-        this.salleCourante = salleCourante;
+    public void setPosition(Room salleCourante) {
+        this.currentRoom = salleCourante;
     }
 }

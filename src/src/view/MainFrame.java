@@ -29,6 +29,7 @@ public class MainFrame extends JFrame {
         this.pack();
         this.setVisible(true);
         this.setMinimumSize(minimumSize);
+        // this decision is due to the lack of beautiful resize of the labyrinths
         this.setResizable(false);
     }
 }

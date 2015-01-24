@@ -5,7 +5,7 @@ import player.Player;
 
 import java.util.Collection;
 
-public interface Labyrinthe {
+public interface Labyrinth {
     // cree le labyrinthe
     public boolean creerLabyrinthe(String file);
 
@@ -16,13 +16,13 @@ public interface Labyrinthe {
     public boolean sortir(Player bob);
 
     // renvoie les salles accessibles par bob
-    public Collection<Salle> sallesAccessibles(Player bob);
+    public Collection<Room> sallesAccessibles(Player bob);
 
     // accesseur sur les salles du labyrinthes
-    public Collection<Salle> getSalles();
+    public Collection<Room> getRooms();
 
     // accesseurs sur l'entree et la sortie
-    public Salle getEntree();
+    public Room getEntree();
 
-    public Salle getSortie();
+    public Room getSortie();
 }

@@ -1,8 +1,8 @@
 package LabyrinthTest;
 
-import maze.Salle;
+import maze.Room;
 import maze.grid.LabyrinthGrilleDefaut;
-import maze.grid.SalleCarree;
+import maze.grid.SquareRoom;
 import org.junit.Test;
 import player.Player;
 import player.KeyboardPlayer;
@@ -20,7 +20,7 @@ public class LabyrinthGrilleDefautTest {
         labyrinthTest.creerLabyrinthe("labys/level10.txt");
         assertEquals(labyrinthTest.getHauteur(), 37);
         assertEquals(labyrinthTest.getLargeur(), 37);
-        SalleCarree c = (SalleCarree) labyrinthTest.getEntree();
+        SquareRoom c = (SquareRoom) labyrinthTest.getEntree();
         assertEquals(c.getColonne(), 1);
         assertEquals(c.getLigne(), 1);
     }
@@ -28,7 +28,7 @@ public class LabyrinthGrilleDefautTest {
     @Test
     public void testSallesAccessibles() throws Exception {
         Player p = new KeyboardPlayer();
-        ArrayList<Salle> sallesLibres;
+        ArrayList<Room> sallesLibres;
         labyrinthTest.creerLabyrinthe("labys/level10.txt");
 
         labyrinthTest.entrer(p);

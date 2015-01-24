@@ -1,8 +1,8 @@
 package maze.grid;
 
-import maze.Salle;
+import maze.Room;
 
-public interface Case extends Salle {
+public interface Case extends Room {
     public int getLigne();
 
     public int getColonne();

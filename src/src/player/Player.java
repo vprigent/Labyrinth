@@ -1,18 +1,18 @@
 // Personnage.java
 package player;
 
-import maze.Salle;
+import maze.Room;
 
 import java.util.Collection;
 
 public interface Player {
     // renvoie une salle parmi sallesAccesibles
-    public Salle faitSonChoix(Collection<Salle> sallesAccessibles);
+    public Room faitSonChoix(Collection<Room> sallesAccessibles);
 
     // renvoie sa position courante
-    public Salle getPosition();
+    public Room getPosition();
 
     // definit sa position courante
-    public void setPosition(Salle s);
+    public void setPosition(Room s);
 
 }
