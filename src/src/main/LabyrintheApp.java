@@ -16,16 +16,20 @@ public class LabyrintheApp {
         MazeHandler labyrinthHandler = new MazeHandler();
         Player bob = new KeyboardPlayer();
 
-
         labyrinthHandler.getCurrentLabyrinth().entrer(bob);
 
         // vue
         MainFrame frame = new MainFrame(labyrinthHandler.getCurrentLabyrinth(), bob);
 
+        labyrinthHandler.addObserver(frame);
+
         while (!labyrinthHandler.getCurrentLabyrinth().sortir(bob)) {
             Collection<Room> sallesAccessibles = labyrinthHandler.getCurrentLabyrinth().sallesAccessibles(bob);
             Room destination = bob.faitSonChoix(sallesAccessibles); // on demande au heros de faire son choix de salle
-            if (destination != bob.getPosition()) destination.recevoir(bob); // deplacement
+            if (destination != bob.getPosition()) {
+                destination.recevoir(bob); // deplacement
+            }
+
             //rafraichissement de la vue
             frame.repaint();
             // on fait une pause
@@ -34,6 +38,10 @@ public class LabyrintheApp {
                 Thread.sleep(10);
             } catch (InterruptedException ie) {
                 System.err.println(ie);
+            }
+            if(labyrinthHandler.getCurrentLabyrinth().sortir(bob)) {
+                labyrinthHandler.loadLabyrinth();
+                labyrinthHandler.getCurrentLabyrinth().entrer(bob);
             }
         }
     }

@@ -1,6 +1,7 @@
 // Dessin.java
 package view;
 
+import maze.Labyrinth;
 import maze.Room;
 import maze.grid.Case;
 import maze.grid.LabyrinthGrille;
@@ -16,21 +17,17 @@ import java.util.Collection;
 public class LabyrinthView extends JComponent {
 
     private final static int unite = 15;
-    private LabyrinthGrille labyrinth;
+    private Labyrinth labyrinth;
     private Player bob;
-    private Case entree;
-    private Case sortie;
     private ArrayList<Case> sallesVisitees;
 
-    public LabyrinthView(LabyrinthGrille labyrinthe, Player bob) {
+    public LabyrinthView(Labyrinth labyrinth, Player bob) {
         this.sallesVisitees = new ArrayList();
-        this.labyrinth = labyrinthe;
-        entree = (Case) labyrinthe.getEntree();
-        sortie = (Case) labyrinthe.getSortie();
+        this.labyrinth = labyrinth;
         this.bob = bob;
 
         // we define the minimal size of the component, depending on the size of the maze
-        setMinimumSize(new Dimension(labyrinthe.getLargeur() * unite, labyrinthe.getHauteur() * unite));
+        setMinimumSize(new Dimension(((LabyrinthGrille) labyrinth).getLargeur() * unite, ((LabyrinthGrille) labyrinth).getHauteur() * unite));
 
         addKeyListener((KeyListener) bob);
     }
@@ -47,33 +44,57 @@ public class LabyrinthView extends JComponent {
         for (Room s : rooms) {
             i = ((Case) s).getLigne();
             j = ((Case) s).getColonne();
-            g.setColor(Color.white);
+            Color c = new Color(255,255,255);
+
+            int distanceToPlayer = (Math.abs(i - ((Case) bob.getPosition()).getLigne()) + Math.abs(j - ((Case) bob.getPosition()).getColonne()));
+
+            for(int temp = 1; temp < distanceToPlayer; temp++){
+                c = c.darker();
+            }
+
+            g.setColor(c);
             g.fillRect(j * unite, i * unite, unite, unite);
         }
     }
 
-    public void dessinSallesVisitees(Graphics g) {
+    public void drawVisitedRooms(Graphics g) {
         int i, j;
+
+        System.out.println(this.hashCode());
+
         // dessin des salles connues
         Case c = (Case) bob.getPosition();
         if (!sallesVisitees.contains(c)) // maj des salles visitees
             sallesVisitees.add(c);
+
         for (Case s : sallesVisitees) {
             j = s.getColonne();
             i = s.getLigne();
-            g.setColor(new Color(100, 100, 0));
+
+            Color color = new Color(100,100,0);
+
+            int distanceToPlayer = (Math.abs(i - ((Case) bob.getPosition()).getLigne()) + Math.abs(j - ((Case) bob.getPosition()).getColonne()));
+
+            for(int temp = 1; temp < distanceToPlayer; temp++){
+                color = color.darker();
+            }
+
+            g.setColor(color);
+
+            g.setPaintMode();
+
             g.fillRect(j * unite, i * unite, unite, unite);
         }
     }
 
-    public void dessinEntreeSortie(Graphics g) {
-        g.setColor(new Color(110, 90, 50));
-        g.fillRect(entree.getColonne() * unite, entree.getLigne() * unite, unite, unite);
-        g.setColor(new Color(0, 200, 255));
-        g.fillRect(sortie.getColonne() * unite, sortie.getLigne() * unite, unite, unite);
+    public void drawEntryExit(Graphics g) {
+        g.setColor(new Color(255, 190, 139));
+        g.fillRect(((Case)labyrinth.getEntree()).getColonne() * unite, ((Case)labyrinth.getEntree()).getLigne() * unite, unite, unite);
+        g.setColor(new Color(127, 207, 225));
+        g.fillRect(((Case)labyrinth.getSortie()).getColonne() * unite, ((Case)labyrinth.getSortie()).getLigne() * unite, unite, unite);
     }
 
-    public void dessinHeros(Graphics g) {
+    public void drawHero(Graphics g) {
         g.setColor(new Color(125, 40, 255));
         Case s = (Case) bob.getPosition();
         g.fillRect(s.getColonne() * unite, s.getLigne() * unite,
@@ -83,9 +104,8 @@ public class LabyrinthView extends JComponent {
     public void paintComponent(Graphics g) {
         drawBackground(g);
         drawRoom(g);
-        dessinSallesVisitees(g);
-        dessinEntreeSortie(g);
-        dessinHeros(g);
-        revalidate();
+        drawVisitedRooms(g);
+        drawEntryExit(g);
+        drawHero(g);
     }
 }

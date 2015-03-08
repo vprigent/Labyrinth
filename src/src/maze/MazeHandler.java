@@ -4,28 +4,28 @@ import maze.grid.LabyrinthGrille;
 import maze.grid.LabyrinthGrilleDefaut;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.nio.file.FileSystemNotFoundException;
+import java.util.Observable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-/**
- * Created by Vincent on 22/01/2015.
- */
-public class MazeHandler {
+public class MazeHandler extends Observable {
     private Labyrinth currentLabyrinth;
     private int lastLevel = 0;
 
     public MazeHandler() {
         currentLabyrinth = new LabyrinthGrilleDefaut();
 
-        lastLevel = loadLabyrinth(lastLevel);
+        lastLevel = loadLabyrinth();
     }
 
     /* Having a regex here is with the intention of loading any file on the folder labys
      * where the name pattern is some sort of :
      * sthOrNthgWithChar plus the number of the level needed plus sthWithChar
      */
-    private int loadLabyrinth(int lastLevel) {
+    public int loadLabyrinth() {
         boolean matches = false;
         int j;
 
@@ -47,9 +47,11 @@ public class MazeHandler {
             }
             lastLevel++;
         }
-
         // Error is probably not the good class to use here ( cf IntelliJ Suggestion )
-        if(!matches) throw new Error("No labyrinth found on loading.");
+        if(!matches) throw new FileSystemNotFoundException("No labyrinth found on loading.");
+
+        setChanged();
+        notifyObservers(currentLabyrinth);
 
         return lastLevel;
     }
