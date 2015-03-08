@@ -19,10 +19,8 @@ public class LabyrinthView extends JComponent {
     private final static int unite = 15;
     private Labyrinth labyrinth;
     private Player bob;
-    private ArrayList<Case> sallesVisitees;
 
     public LabyrinthView(Labyrinth labyrinth, Player bob) {
-        this.sallesVisitees = new ArrayList();
         this.labyrinth = labyrinth;
         this.bob = bob;
 
@@ -57,36 +55,6 @@ public class LabyrinthView extends JComponent {
         }
     }
 
-    public void drawVisitedRooms(Graphics g) {
-        int i, j;
-
-        System.out.println(this.hashCode());
-
-        // dessin des salles connues
-        Case c = (Case) bob.getPosition();
-        if (!sallesVisitees.contains(c)) // maj des salles visitees
-            sallesVisitees.add(c);
-
-        for (Case s : sallesVisitees) {
-            j = s.getColonne();
-            i = s.getLigne();
-
-            Color color = new Color(100,100,0);
-
-            int distanceToPlayer = (Math.abs(i - ((Case) bob.getPosition()).getLigne()) + Math.abs(j - ((Case) bob.getPosition()).getColonne()));
-
-            for(int temp = 1; temp < distanceToPlayer; temp++){
-                color = color.darker();
-            }
-
-            g.setColor(color);
-
-            g.setPaintMode();
-
-            g.fillRect(j * unite, i * unite, unite, unite);
-        }
-    }
-
     public void drawEntryExit(Graphics g) {
         g.setColor(new Color(255, 190, 139));
         g.fillRect(((Case)labyrinth.getEntree()).getColonne() * unite, ((Case)labyrinth.getEntree()).getLigne() * unite, unite, unite);
@@ -104,7 +72,6 @@ public class LabyrinthView extends JComponent {
     public void paintComponent(Graphics g) {
         drawBackground(g);
         drawRoom(g);
-        drawVisitedRooms(g);
         drawEntryExit(g);
         drawHero(g);
     }
